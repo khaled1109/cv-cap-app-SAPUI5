@@ -1,0 +1,118 @@
+<mvc:View
+  controllerName="com.example.cv.controller.Main"
+  xmlns:mvc="sap.ui.core.mvc"
+  xmlns="sap.m"
+  xmlns:core="sap.ui.core">
+
+  <VBox class="sapUiContentPadding" alignItems="Center" justifyContent="Center" binding="{/Profiles(1)}">
+
+
+    <!-- Name + Titel -->
+    <VBox alignItems="Center" class="sapUiSmallMarginBottom">
+      <Title text="{fullName}" level="H1" />
+      <Text text="{jobTitle}" />
+    </VBox>
+
+    <!-- Summary -->
+    <Text text="{summary}"
+          class="summaryText sapUiMediumMarginBottom"
+          textAlign="Center"
+          wrapping="true" />
+
+    <!-- Kontaktinformationen -->
+    <HBox class="sapUiMediumMarginTop" alignItems="Center" wrap="Wrap" justifyContent="Center">
+      <HBox alignItems="Center" class="sapUiTinyMargin">
+        <core:Icon src="sap-icon://email" size="1.2rem" />
+        <Text text="{email}" class="sapUiTinyMarginBegin" />
+      </HBox>
+
+      <HBox alignItems="Center" class="sapUiTinyMargin">
+        <core:Icon src="sap-icon://phone" size="1.2rem" />
+        <Text text="{phone}" class="sapUiTinyMarginBegin" />
+      </HBox>
+
+      <HBox alignItems="Center" class="sapUiTinyMargin">
+        <core:Icon src="sap-icon://world" size="1.2rem" />
+        <Text text="{location}" class="sapUiTinyMarginBegin" />
+      </HBox>
+
+      <HBox alignItems="Center" class="sapUiTinyMargin">
+        <core:Icon src="sap-icon://linkedin" size="1.2rem" />
+        <Link text="{linkedin}" href="{linkedin}" target="_blank" class="sapUiTinyMarginBegin" />
+      </HBox>
+
+      <HBox alignItems="Center" class="sapUiTinyMargin">
+        <core:Icon src="sap-icon://source-code" size="1.2rem" />
+        <Link text="{github}" href="{github}" target="_blank" class="sapUiTinyMarginBegin" />
+      </HBox>
+    </HBox>
+
+    <!-- Berufserfahrung -->
+    <Panel class="sapUiMediumMarginTop panelBox" headerText="Berufserfahrung" expandable="false" expanded="true">
+      <VBox class="sapUiSmallMargin">
+        <List items="{
+            path: '/Experience',
+            sorter: { path: 'start', descending: true },
+            parameters: { $select: 'title,company,location,start,end,description' }
+          }">
+          <items>
+            <CustomListItem>
+              <VBox class="resumeBox sapUiMediumMarginBottom">
+                <Text text="{title}" class="sapUiSmallMarginBottom sapMTitleBold sapThemeHighlight-asTextColor" />
+                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                  <Text text="{company}" class="sapUiTinyMarginEnd" />
+                  <Text text="•" class="sapUiTinyMarginEnd sapUiTinyMarginBegin" />
+                  <Text text="{location}" class="sapUiTinyMarginEnd" />
+                  <Text text="•" class="sapUiTinyMarginEnd sapUiTinyMarginBegin" />
+                  <Text text="{
+                    parts: [{ path: 'start' }, { path: 'end' }],
+                    formatter: '.formatDateRange'
+                  }" />
+                </HBox>
+                <Text text="{description}" wrapping="true" />
+              </VBox>
+            </CustomListItem>
+          </items>
+        </List>
+      </VBox>
+    </Panel>
+
+    <!-- Bildung -->
+    <Panel class="sapUiMediumMarginTop panelBox" headerText="Ausbildung" expandable="false" expanded="true">
+      <VBox class="sapUiSmallMargin">
+        <List
+          items="{
+            path: '/Education',
+            sorter: { path: 'start', descending: true },
+            parameters: { $select: 'degree,institution,location,country,start,end,grade,thesis,details' }
+          }">
+          <items>
+            <CustomListItem>
+              <VBox class="resumeBox sapUiMediumMarginBottom">
+                <Text text="{degree}" class="sapUiSmallMarginBottom sapMTitleBold sapThemeHighlight-asTextColor" wrapping="true" />
+
+                <HBox alignItems="Center" class="sapUiTinyMarginBottom">
+                  <Text text="{institution}" />
+                  <Text text=" • " />
+                  <Text text="{location}, {country}" />
+                  <Text text=" • " />
+                  <Text
+                    text="{
+                      parts: [{ path: 'start' }, { path: 'end' }],
+                      formatter: '.formatDateRange'
+                    }" />
+                </HBox>
+
+                <Text text="{= ${grade} ? 'Note: ' + ${grade} : '' }" class="sapUiTinyMarginBottom" wrapping="true" />
+                <Text text="{= ${thesis} ? 'Abschlussarbeit: ' + ${thesis} : '' }" class="sapUiTinyMarginBottom" wrapping="true" />
+                <Text text="{details}" wrapping="true" />
+              </VBox>
+            </CustomListItem>
+          </items>
+        </List>
+      </VBox>
+    </Panel>
+
+
+  </VBox>
+</mvc:View>
