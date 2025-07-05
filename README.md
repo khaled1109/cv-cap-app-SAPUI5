@@ -1,6 +1,6 @@
 # CV CAP App – SAPUI5 Version
 
-This project is a CV CV App built using **SAPUI5** and **CAP**.
+This project is a CV App built using **SAPUI5** and **CAP**.
 
 # Getting Started
 
